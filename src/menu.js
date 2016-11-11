@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { app, shell, Menu } from 'electron'
+import { app, shell, Menu, BrowserWindow } from 'electron'
 /* eslint-enable import/no-unresolved */
 
 const APP_NAME = app.getName()
@@ -120,6 +120,23 @@ const darwinMenu = [
           }
         }
       },
+      {
+        label: 'Compose',
+        accelerator: 'Cmd+N',
+        click(item, focusedWindow) {
+          const code = "window.location.href = window.location.origin+window.location.pathname+'#compose'"
+          focusedWindow.webContents.executeJavaScript(code)
+        }
+      },
+      {
+        label: 'Compose New Window',
+        accelerator: 'Cmd+Shift+N',
+        click(item, focusedWindow) {
+          const replyToWindow = new BrowserWindow({})
+          replyToWindow.loadURL('https://mail.google.com/mail/?view=cm')
+        }
+      },
+      {
         label: 'Minimize',
         accelerator: 'Cmd+M',
         role: 'minimize'

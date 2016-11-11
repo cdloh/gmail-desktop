@@ -105,6 +105,21 @@ const darwinMenu = [
     role: 'window',
     submenu: [
       {
+        label: 'Back',
+        click(item, focusedWindow) {
+          if (focusedWindow && focusedWindow.webContents.canGoBack()) {
+            focusedWindow.webContents.goBack()
+          }
+        }
+      },
+      {
+        label: 'Forward',
+        click(item, focusedWindow) {
+          if (focusedWindow && focusedWindow.webContents.canGoForward()) {
+            focusedWindow.webContents.goForward()
+          }
+        }
+      },
         label: 'Minimize',
         accelerator: 'Cmd+M',
         role: 'minimize'

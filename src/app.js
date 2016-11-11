@@ -64,6 +64,15 @@ app.on('ready', () => {
     mainWindow.show()
   })
 
+  webContents.on('app-command', (e, cmd) => {
+    // Navigate the window back when the user hits their mouse navigation buttons
+    if (cmd === 'browser-backward' && mainWindow.webContents.canGoBack()) {
+      mainWindow.webContents.goBack()
+    } else if (cmd === 'browser-forward' && mainWindow.webContents.canGoForward()) {
+      mainWindow.webContents.goForward()
+    }
+  })
+
   webContents.on('new-window', (e, url) => {
     if (/^(https:\/\/(mail|accounts)\.google\.com).*/.test(url)) {
       e.preventDefault()
